@@ -63,7 +63,8 @@ public class Switch extends CustomView {
 			setBackgroundColor(getResources().getColor(bacgroundColor));
 		} else {
 			// Color by hexadecimal
-			int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
+			int background = attrs.getAttributeIntValue(ANDROIDXML,
+					"background", -1);
 			if (background != -1)
 				setBackgroundColor(background);
 		}
@@ -90,9 +91,9 @@ public class Switch extends CustomView {
 				float x = event.getX();
 				x = (x < ball.xIni) ? ball.xIni : x;
 				x = (x > ball.xFin) ? ball.xFin : x;
-				if (x > ball.xCen) {
+				if (!eventCheck && x > ball.xIni) {
 					check = true;
-				} else {
+				} else if (eventCheck && x < ball.xFin) {
 					check = false;
 				}
 				ViewHelper.setX(ball, x);
@@ -101,8 +102,8 @@ public class Switch extends CustomView {
 					isLastTouch = false;
 					press = false;
 				}
-			} else if (event.getAction() == MotionEvent.ACTION_UP ||
-					event.getAction() == MotionEvent.ACTION_CANCEL) {
+			} else if (event.getAction() == MotionEvent.ACTION_UP
+					|| event.getAction() == MotionEvent.ACTION_CANCEL) {
 				press = false;
 				isLastTouch = false;
 				if (eventCheck != check) {
@@ -190,7 +191,7 @@ public class Switch extends CustomView {
 		backgroundColor = color;
 		if (isEnabled())
 			beforeBackground = backgroundColor;
-		
+
 	}
 
 	public void setChecked(boolean check) {
